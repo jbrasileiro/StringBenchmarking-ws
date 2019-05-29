@@ -9,7 +9,7 @@ import javax.ws.rs.core.Application;
 
 import stringbenchmarking.ws.resource.JHMStringenchmarkingExecuteResource;
 
-@ApplicationPath("rs")
+@ApplicationPath("/")
 public class WSApplicationConfig
 	extends
 	Application {

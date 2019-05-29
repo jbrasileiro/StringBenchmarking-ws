@@ -2,21 +2,30 @@ package stringbenchmarking.ws.resource;
 
 import java.io.IOException;
 
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.grizzly.http.server.ServerConfiguration;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+
+import stringbenchmarking.ws.CustomServer;
 
 public class JHMStringenchmarkingExecuteResourceITest {
 
-	@Test
-	public void test() throws IOException {
-//		Endpoint.publish("http://localhost:8000/junit", new JHMStringenchmarkingExecuteResource());
-        HttpServer server = HttpServer.createSimpleServer("http://localhost/it-test", 8000);
-        ServerConfiguration configuration = server.getServerConfiguration();
-        configuration.setJmxEnabled(true);
-		server.start();
-		Assert.fail("Not yet implemented");
- 
+	@Before
+	public void setUp() {
+		CustomServer.start("/ti/Execute");
 	}
+	
+	@Test
+	public void test()
+		throws IOException {
+		WebResource webResource = Client.create().resource("http://localhost:8000/ti/Execute");
+		ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
+		Assert.assertEquals(200, response.getStatus());
+		Assert.assertEquals("done", response.getEntity(String.class));
+	}
+
 }

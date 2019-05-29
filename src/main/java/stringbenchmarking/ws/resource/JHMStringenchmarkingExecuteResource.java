@@ -1,6 +1,7 @@
 package stringbenchmarking.ws.resource;
 
 import javax.enterprise.context.RequestScoped;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -12,10 +13,11 @@ import javax.ws.rs.core.Response;
 public class JHMStringenchmarkingExecuteResource {
 
 	@GET
-	@Produces("text/xml")
+	@Consumes("application/json")
+	@Produces("application/json")
 	public Response execute() {
 		try {
-			return Response.noContent().build();
+			return Response.ok("done").build();
 		} catch (Exception e) {
 			throw new WebApplicationException(e, Response.serverError().build());
 		}
